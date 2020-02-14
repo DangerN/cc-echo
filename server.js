@@ -8,11 +8,11 @@ app.get('/', (req, res) => {
   res.send('go away')
 })
 
-app.get('/thumb', (req, res) => {
-  res.send('benis')
+app.get('/thumb/:fileID', (req, res) => {
+  
 })
 
-app.get('/media/', (req, res) => {
+app.get('/media/:fileID', (req, res) => {
 
 })
 
