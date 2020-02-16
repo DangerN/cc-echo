@@ -27,11 +27,19 @@ app.post('/media', (req, res) => {
   let name = req.get('File-Name')
   let ext = req.get('File-Extension')
   let buffer = Buffer.from(req.body)
+
   fs.mkdir(__dirname + `/media/${name}/`, (err) => {
-    if (err) { throw err }
+    if (err.code === 'EEXIST') {
+      console.log('Please don\'t write over things.')
+    } else {
+      throw err
+    }
+
     fs.writeFile(__dirname + `/media/${name}/${name}.${ext}`, buffer, (err) => {
-      err ? res.send('no dice') : res.send('seems ok')
+      if (err) {throw err}
+      res.send('seems ok')
     })
+
   })
 })
 
