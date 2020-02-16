@@ -10,8 +10,9 @@ app.get('/thumb/:fileID', (req, res) => {
   res.send('okie')
 })
 
-app.get('/media/:fileID', (req, res) => {
 
+app.get('/media/:fileID', (req, res) => {
+  res.sendFile(__dirname + `/media/${req.params.fileID}/${req.params.fileID}`)
 })
 
 app.post('/media', (req, res) => {
