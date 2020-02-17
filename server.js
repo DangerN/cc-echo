@@ -33,11 +33,12 @@ app.post('/media', (req, res) => {
     err && util.handleErr(err)
 
     fs.writeFile(__dirname + `/media/${name}/${name}.${ext}`, buffer, (err) => {
-      if (err) {throw err}
+      err && util.handleErr(err)
+
       imageThumbnail(buffer, {height: 128, width: 128})
       .then(thumb=>{
         fs.writeFile(__dirname + `/media/${name}/${name}-thumb.${ext}`, thumb, (err) => {
-          if (err) {throw err}
+          err && util.handleErr(err)
         })
       })
       .catch(err=>console.log(err))
