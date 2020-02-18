@@ -12,14 +12,14 @@ app.use(bodyParser.raw({type: 'application/octet-stream', limit: '4mb'}))
 // check to see if file is available and send file or 404
 app.get('/media/:fileID', (req, res) => {
   fs.readdir(__dirname + `/media/${req.params.fileID}/`, (err, file) => {
-    err ? res.send('404') : res.sendFile(__dirname + `/media/${req.params.fileID}/${file[0]}`)
+    err ? res.send('404') : res.sendFile(__dirname + `/media/${req.params.fileID}/${file[1]}`)
   })
 })
 
 // check to see if file is available and send thumb or 404
 app.get('/thumb/:fileID', (req, res) => {
   fs.readdir(__dirname + `/media/${req.params.fileID}/`, (err, file) => {
-    err ? res.send('404') : res.sendFile(__dirname + `/media/${req.params.fileID}/${file[1]}`)
+    err ? res.send('404') : res.sendFile(__dirname + `/media/${req.params.fileID}/${file[0]}`)
   })
 })
 
