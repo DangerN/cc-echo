@@ -3,11 +3,15 @@ const fs = require('fs')
 const bodyParser = require('body-parser')
 const imageThumbnail = require('image-thumbnail')
 const util = require('./util')
+// const busboy = require('connect-busboy');
 
 const app = express()
 const port = 3001
 
 app.use(bodyParser.raw({type: 'application/octet-stream', limit: '4mb'}))
+// app.use(bodyParser.urlencoded({type: '*/*', limit: '10mb', parameterLimit: 100000, extended: true}))
+// app.use(bodyParser.urlencoded({type: '*/*', limit: '10mb'}))
+// app.use(busboy())
 
 // check to see if file is available and send file or 404
 app.get('/media/:fileID', (req, res) => {
@@ -23,11 +27,13 @@ app.get('/thumb/:fileID', (req, res) => {
   })
 })
 
+
 // create thumbnail and save to meida folder then respond with status
 app.post('/media', (req, res) => {
   let name = req.get('File-Name')
   let ext = req.get('File-Extension')
   let buffer = Buffer.from(req.body)
+  console.log(req.body);
 
   fs.mkdir(__dirname + `/media/${name}/`, (err) => {
     err && util.handleErr(err)
