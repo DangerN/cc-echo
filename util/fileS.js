@@ -1,4 +1,3 @@
-const fs = require('fs')
 const fsp = require('fs').promises
 const path = require('path');
 const imageThumbnail = require('image-thumbnail')
@@ -19,7 +18,6 @@ exports.newImage = async function (name, extension, data) {
   return new Promise(function(resolve, reject) {
     fsp.mkdir(writePathBase + `${name}/`)
     .then(()=> {
-      console.log('saving file');
       let saveThumb = imageThumbnail(data, {height: 128, width: 128})
       .then(thumb => fsp.writeFile(writePathBase + `${name}/${name}-thumb.${ext}`, thumb))
 
