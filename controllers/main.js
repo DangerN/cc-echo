@@ -3,16 +3,21 @@ const router = express.Router()
 const bodyParser = require('body-parser')
 const fs = require('fs')
 const path = require('path');
-const fileS = require('./util/fileS');
+const fileS = require('../util/fileS');
 
 
 router.use(bodyParser.raw({type: 'application/octet-stream', limit: '4mb'}))
 
 // check to see if file is available and send file or 404
 router.get('/media/:fileID', (req, res) => {
-  fs.readdir(path.dirname(__dirname) + `/media/${req.params.fileID}/`, (err, file) => {
-    err ? res.send('404') : res.sendFile(path.dirname(__dirname) + `/media/${req.params.fileID}/${file[1]}`)
-  })
+  fileS.checkPath(req.params.fileID)
+    .then((dirRes) => {
+      res.sendFile(`${dirRes.path}/${dirRes.files[1]}`)
+    })
+    .catch((err) => {
+      console.log(err);
+      res.send(404)
+    })
 })
 
 // check to see if file is available and send thumb or 404
