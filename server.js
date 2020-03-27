@@ -1,6 +1,5 @@
 const express = require('express')
 const fs = require('fs')
-const imageThumbnail = require('image-thumbnail')
 const util = require('./util')
 const main = require('./controllers/main.js');
 const app = express()
