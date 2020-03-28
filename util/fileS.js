@@ -1,8 +1,10 @@
+const fs = require('fs');
 const fsp = require('fs').promises
 const path = require('path');
 const imageThumbnail = require('image-thumbnail')
 
 exports.checkPath = async function (fileID) {
+  console.log(fileID);
   return new Promise((res, rej) => {
     fs.readdir(path.dirname(__dirname) + `/media/${fileID}/`, (err, files) => {
       err && rej(err)
